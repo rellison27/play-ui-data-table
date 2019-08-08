@@ -4,5 +4,4 @@
 - If you downloaded the zip file, unpack the files in the zip folder.
 
 # Run App
--  run `$ npm inatall` to get all node packages necessary
 - run `$ npm start` the app should open your browser automatically (if not, server is on localhost:3000)
