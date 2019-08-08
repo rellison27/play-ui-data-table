@@ -12,6 +12,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import UtilsMoment from "@date-io/moment";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Row from "./Row";
+import Head from "./Head";
+
 export default class TableComponent extends Component {
   constructor(props) {
     super(props);
@@ -74,14 +76,7 @@ export default class TableComponent extends Component {
             </MuiPickersUtilsProvider>
           </nav>
           <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Key</TableCell>
-                <TableCell>Headline</TableCell>
-                <TableCell>SubHeadline</TableCell>
-                <TableCell>Start Time</TableCell>
-              </TableRow>
-            </TableHead>
+            <Head />
             <TableBody>
               {tab === "GHSA" &&
                 filter(georgiaAssociation, ({ publishers }) =>
