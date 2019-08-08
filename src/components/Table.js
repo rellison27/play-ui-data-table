@@ -11,6 +11,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import UtilsMoment from "@date-io/moment";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import Row from "./Row";
 export default class TableComponent extends Component {
   constructor(props) {
     super(props);
@@ -88,22 +89,15 @@ export default class TableComponent extends Component {
                     .format("LLL")
                     .includes(query)
                 ).map(({ key, publishers }) => (
-                  <TableRow key={key}>
-                    <TableCell component="th" scope="row">
-                      {key}
-                    </TableCell>
-                    <TableCell>
-                      {publishers[0].broadcasts[0].headline}
-                    </TableCell>
-                    <TableCell>
-                      {publishers[0].broadcasts[0].subheadline}
-                    </TableCell>
-                    <TableCell>
-                      {moment(publishers[0].broadcasts[0].start_time).format(
-                        "LLL"
-                      )}
-                    </TableCell>
-                  </TableRow>
+                  <Row
+                    key={key}
+                    id={key}
+                    headline={publishers[0].broadcasts[0].headline}
+                    subHeadline={publishers[0].broadcasts[0].subheadline}
+                    startTime={moment(
+                      publishers[0].broadcasts[0].start_time
+                    ).format("LLL")}
+                  />
                 ))}
               {tab === "THSA" &&
                 filter(texasAssociation, ({ publishers }) =>
@@ -111,22 +105,15 @@ export default class TableComponent extends Component {
                     .format("LLL")
                     .includes(query)
                 ).map(({ key, publishers }) => (
-                  <TableRow key={key}>
-                    <TableCell component="th" scope="row">
-                      {key}
-                    </TableCell>
-                    <TableCell>
-                      {publishers[0].broadcasts[0].headline}
-                    </TableCell>
-                    <TableCell>
-                      {publishers[0].broadcasts[0].subheadline}
-                    </TableCell>
-                    <TableCell>
-                      {moment(publishers[0].broadcasts[0].start_time).format(
-                        "LLL"
-                      )}
-                    </TableCell>
-                  </TableRow>
+                  <Row
+                    key={key}
+                    id={key}
+                    headline={publishers[0].broadcasts[0].headline}
+                    subHeadline={publishers[0].broadcasts[0].subheadline}
+                    startTime={moment(
+                      publishers[0].broadcasts[0].start_time
+                    ).format("LLL")}
+                  />
                 ))}
             </TableBody>
           </Table>
