@@ -1,0 +1,25 @@
+.container {
+  overflow-x: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 50px;
+  padding: 10px;
+  margin: 10px;
+}
+
+@media screen and (max-width: 425px) {
+  div .MuiTableCell-root {
+    padding: 0px 10px 0px 0px;
+  }
+  .nav {
+    display: block !important;
+    padding: 0px !important;
+    text-align: left !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  div .MuiTableCell-root {
+    font-size: 0.6rem;
+  }
+}
