@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
-import { filter } from "lodash";
 import moment from "moment";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -10,6 +9,7 @@ import UtilsMoment from "@date-io/moment";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Row from "./Row";
 import Head from "./Head";
+import { filterPublishedGames, filterStartTime, formatter } from "./utils";
 
 export default class TableComponent extends Component {
   constructor(props) {
@@ -27,10 +27,7 @@ export default class TableComponent extends Component {
     )
       .then(res => res.json())
       .then(({ items }) => {
-        const filtered = filter(
-          items,
-          ({ publishers }) => publishers[0].broadcasts[0].headline
-        );
+        const filtered = filterPublishedGames(items);
         this.setState({ georgiaAssociation: filtered });
       });
     fetch(
@@ -38,17 +35,16 @@ export default class TableComponent extends Component {
     )
       .then(res => res.json())
       .then(({ items }) => {
-        const filtered = filter(
-          items,
-          ({ publishers }) => publishers[0].broadcasts[0].headline
-        );
+        const filtered = filterPublishedGames(items);
         this.setState({ texasAssociation: filtered });
       });
   }
 
   handleSelectChange = ({ target: { value } }) => this.setState({ tab: value });
+
   handleTextFieldChange = value =>
     this.setState({ query: moment(value).format("LL") });
+
   render() {
     const { georgiaAssociation, tab, texasAssociation, query } = this.state;
     return (
@@ -76,37 +72,33 @@ export default class TableComponent extends Component {
             <Head />
             <TableBody>
               {tab === "GHSA" &&
-                filter(georgiaAssociation, ({ publishers }) =>
-                  moment(publishers[0].broadcasts[0].start_time)
-                    .format("LLL")
-                    .includes(query)
-                ).map(({ key, publishers }) => (
-                  <Row
-                    key={key}
-                    id={key}
-                    headline={publishers[0].broadcasts[0].headline}
-                    subHeadline={publishers[0].broadcasts[0].subheadline}
-                    startTime={moment(
-                      publishers[0].broadcasts[0].start_time
-                    ).format("LLL")}
-                  />
-                ))}
+                filterStartTime(georgiaAssociation, query).map(
+                  ({ key, publishers }) => (
+                    <Row
+                      key={key}
+                      id={key}
+                      headline={publishers[0].broadcasts[0].headline}
+                      subHeadline={publishers[0].broadcasts[0].subheadline}
+                      startTime={formatter(
+                        publishers[0].broadcasts[0].start_time
+                      )}
+                    />
+                  )
+                )}
               {tab === "THSA" &&
-                filter(texasAssociation, ({ publishers }) =>
-                  moment(publishers[0].broadcasts[0].start_time)
-                    .format("LLL")
-                    .includes(query)
-                ).map(({ key, publishers }) => (
-                  <Row
-                    key={key}
-                    id={key}
-                    headline={publishers[0].broadcasts[0].headline}
-                    subHeadline={publishers[0].broadcasts[0].subheadline}
-                    startTime={moment(
-                      publishers[0].broadcasts[0].start_time
-                    ).format("LLL")}
-                  />
-                ))}
+                filterStartTime(texasAssociation, query).map(
+                  ({ key, publishers }) => (
+                    <Row
+                      key={key}
+                      id={key}
+                      headline={publishers[0].broadcasts[0].headline}
+                      subHeadline={publishers[0].broadcasts[0].subheadline}
+                      startTime={formatter(
+                        publishers[0].broadcasts[0].start_time
+                      )}
+                    />
+                  )
+                )}
             </TableBody>
           </Table>
         </Paper>
