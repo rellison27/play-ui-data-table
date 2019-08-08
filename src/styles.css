@@ -7,7 +7,7 @@
   margin: 10px;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 575px) {
   div .MuiTableCell-root {
     padding: 0px 10px 0px 0px;
   }
@@ -18,7 +18,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 420px) {
   div .MuiTableCell-root {
     font-size: 0.6rem;
   }
