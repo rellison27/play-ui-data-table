@@ -5,3 +5,4 @@
 
 # Run App
 - run `$ npm start` the app should open your browser automatically (if not, server is on localhost:3000)
+- or click [here](https://rellison27.github.io/play-ui-data-table/)
